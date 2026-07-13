@@ -24,17 +24,14 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libsqlite3-dev lldd scons build-essential libgl1-mesa-dev libgles2-mesa-dev zlib1g-dev libgstreamer1.0-dev libcairo2-dev libpango1.0-dev libgstreamer-plugins-base1.0-dev ccache openjdk-17-jdk unzip python3-pip python3-setuptools python3-virtualenv
 
-      - name: Install Build Tools via VirtualEnv
+      - name: Install Buildozer Globally (Bypass System Lock)
         run: |
-          # পাইথনের এক্সটার্নাল এনভায়রনমেন্ট এরর এড়ানোর জন্য এই ট্রিক
-          python3 -m venv venv
-          source venv/bin/activate
-          pip install --upgrade pip
-          pip install buildozer cython kivy
+          # --break-system-packages ব্যবহার করে গ্লোবালি ইনস্টল করা হচ্ছে যাতে বিল্ডোজার সব পাথ খুঁজে পায়
+          pip install --upgrade pip --break-system-packages
+          pip install buildozer cython kivy --break-system-packages
 
       - name: Build with Buildozer
         run: |
-          source venv/bin/activate
           yes | buildozer -v android debug
 
       - name: Upload APK Artifact
