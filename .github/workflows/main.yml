@@ -1,5 +1,4 @@
-name: Build ODM Premium APK
-
+name: Build ODM APK
 on:
   push:
     branches: [ "main", "master" ]
@@ -8,33 +7,12 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04 # উবুন্টুর লেটেস্ট ভার্সন
-
+    runs-on: ubuntu-20.04
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4.2.2 # আপডেটেড Node 24 সাপোর্টেড অ্যাকশন
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5.3.0 # আপডেটেড Node 24 সাপোর্টেড অ্যাকশন
+      - name: Buildozer Action
+        uses: Subameyer/buildozer-action@v2
         with:
-          python-version: '3.11'
-
-      - name: Install System Dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libsqlite3-dev lldd scons build-essential libgl1-mesa-dev libgles2-mesa-dev zlib1g-dev libgstreamer1.0-dev libcairo2-dev libpango1.0-dev libgstreamer-plugins-base1.0-dev ccache openjdk-17-jdk unzip python3-pip python3-setuptools python3-virtualenv Autoconf automake libtool pkg-config
-
-      - name: Install Buildozer Globally
-        run: |
-          pip install --upgrade pip --break-system-packages
-          pip install buildozer cython kivy kivymd --break-system-packages
-
-      - name: Build with Buildozer
-        run: |
-          yes | buildozer -v android debug
-
-      - name: Upload APK Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ODM-Cyberpunk-App
-          path: bin/*.apk
+          command: buildozer -v android debug
