@@ -5,8 +5,7 @@ package.domain = org.om
 source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 version = 1.0.0
-requirements = python3, kivy==2.3.0, kivymd==1.1.1, yt-dlp, requests, plyer
-orientation = portrait
+requirements = python3, kivy, kivymd, yt-dlp, requests, jnius, plyerorientation = portrait
 fullscreen = 1
 android.permissions = INTERNET, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE
 android.api = 33
