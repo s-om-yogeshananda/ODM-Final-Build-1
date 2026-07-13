@@ -8,27 +8,26 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04 # উবুন্টুর লেটেস্ট ভার্সন
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2 # আপডেটেড Node 24 সাপোর্টেড অ্যাকশন
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v5.3.0 # আপডেটেড Node 24 সাপোর্টেড অ্যাকশন
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
       - name: Install System Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libsqlite3-dev lldd scons build-essential libgl1-mesa-dev libgles2-mesa-dev zlib1g-dev libgstreamer1.0-dev libcairo2-dev libpango1.0-dev libgstreamer-plugins-base1.0-dev ccache openjdk-17-jdk unzip python3-pip python3-setuptools python3-virtualenv
+          sudo apt-get install -y libsqlite3-dev lldd scons build-essential libgl1-mesa-dev libgles2-mesa-dev zlib1g-dev libgstreamer1.0-dev libcairo2-dev libpango1.0-dev libgstreamer-plugins-base1.0-dev ccache openjdk-17-jdk unzip python3-pip python3-setuptools python3-virtualenv Autoconf automake libtool pkg-config
 
-      - name: Install Buildozer Globally (Bypass System Lock)
+      - name: Install Buildozer Globally
         run: |
-          # --break-system-packages ব্যবহার করে গ্লোবালি ইনস্টল করা হচ্ছে যাতে বিল্ডোজার সব পাথ খুঁজে পায়
           pip install --upgrade pip --break-system-packages
-          pip install buildozer cython kivy --break-system-packages
+          pip install buildozer cython kivy kivymd --break-system-packages
 
       - name: Build with Buildozer
         run: |
